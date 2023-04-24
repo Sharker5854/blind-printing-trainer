@@ -83,7 +83,7 @@ namespace Trainer
         private void startExercise()
         {
             exerciseTextBox.Enabled = true;
-            exerciseTextBox.Text = mode; // тут подт€гиваем слова из Ѕƒ
+            exerciseTextBox.Text = mode; // тут будем подт€гивать слова из Ѕƒ
             timeLeft = Convert.ToInt32(Seconds.Value);
             timerLabel.Text = timeLeft + " секунд";
             exerciseTimer.Start();

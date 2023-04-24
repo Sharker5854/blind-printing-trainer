@@ -193,6 +193,8 @@
             this.Controls.Add(this.textInput);
             this.Controls.Add(this.mainLabel);
             this.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "TrainerForm";
             this.radioPanel.ResumeLayout(false);
             this.radioPanel.PerformLayout();
