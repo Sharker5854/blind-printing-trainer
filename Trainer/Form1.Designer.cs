@@ -45,6 +45,9 @@
             this.quantityLabel = new System.Windows.Forms.Label();
             this.timeLabel = new System.Windows.Forms.Label();
             this.exerciseTextBox = new System.Windows.Forms.TextBox();
+            this.textCheck = new System.Windows.Forms.CheckBox();
+            this.hotKeyCheck = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.radioPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Quantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Seconds)).BeginInit();
@@ -176,11 +179,38 @@
             this.exerciseTextBox.ReadOnly = true;
             this.exerciseTextBox.TabStop = false;
             // 
+            // textCheck
+            // 
+            resources.ApplyResources(this.textCheck, "textCheck");
+            this.textCheck.Checked = true;
+            this.textCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.textCheck.ForeColor = System.Drawing.Color.Gold;
+            this.textCheck.Name = "textCheck";
+            this.textCheck.UseVisualStyleBackColor = true;
+            this.textCheck.CheckedChanged += new System.EventHandler(this.textCheck_CheckedChanged);
+            // 
+            // hotKeyCheck
+            // 
+            resources.ApplyResources(this.hotKeyCheck, "hotKeyCheck");
+            this.hotKeyCheck.ForeColor = System.Drawing.Color.Gold;
+            this.hotKeyCheck.Name = "hotKeyCheck";
+            this.hotKeyCheck.UseVisualStyleBackColor = true;
+            this.hotKeyCheck.CheckedChanged += new System.EventHandler(this.hotKeyCheck_CheckedChanged);
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.Color.IndianRed;
+            this.label1.Name = "label1";
+            // 
             // TrainerForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(41)))), ((int)(((byte)(62)))));
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.hotKeyCheck);
+            this.Controls.Add(this.textCheck);
             this.Controls.Add(this.exerciseTextBox);
             this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.quantityLabel);
@@ -221,5 +251,8 @@
         private Label quantityLabel;
         private Label timeLabel;
         private TextBox exerciseTextBox;
+        private CheckBox textCheck;
+        private CheckBox hotKeyCheck;
+        private Label label1;
     }
 }

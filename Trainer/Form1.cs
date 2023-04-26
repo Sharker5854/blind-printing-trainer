@@ -6,24 +6,72 @@ namespace Trainer
          TODO:
          Найти БД со словами и преложениями
          Сохранить её локально
-         Выводить слова/предложения в exerciseTextLabel
-         Сравнивать введенное значение из textInput с нужным (после каждого введенного символа)
+         Запретить копировать из exerciseTextBox
+         Ограничить кол-во выводимых упражнений в соответствии со значением quantity ( при каждом верно введенном делать quantity-1, и когда оно будет равно нулю завершать тренировку и выводить: "Вы уложились раньше времени! Кол-во введенных {}. Затраченное время {}." )
         */
     {
-        int timeLeft = 30;
-        string mode = "letter";
-        int quantity = 10;
+        public int timeLeft = 30;
+        public string mode = "letter";
+        public int quantity = 10;
+        public bool regime_text = true;
+        public bool regime_hot_key = false;
+
+        public int exercise_completed_counter = 0;
+
+        public ExerciseContext db;
+        public List<Exercise> letter_exercises = new List<Exercise>();
+        public List<Exercise> word_exercises = new List<Exercise>();
+        public List<Exercise> sentence_exercises = new List<Exercise>();
+        public Exercise? current_exercise;
+
+
 
         public TrainerForm()
         {
             InitializeComponent();
+            db = new ExerciseContext();
+            DivideExercisesInLists();
             textInput.KeyPress += new KeyPressEventHandler(CheckEnterKeyPressing);
             exerciseTextBox.ForeColor = ColorTranslator.FromHtml("#CD5C5C");
         }
 
+        public void DivideExercisesInLists()
+        {
+            foreach (Exercise exercise in db.Exercises)
+            {
+                switch (exercise.type)
+                {
+                    case "letter":
+                        letter_exercises.Add(exercise); break;
+                    case "word":
+                        word_exercises.Add(exercise); break;
+                    case "sentence":
+                        sentence_exercises.Add(exercise); break;
+                }
+            }
+        }
+
+        public Exercise GetRandomExercise()
+        {
+            var random = new Random();
+            switch (mode)
+            {
+                case "letter":
+                    return letter_exercises[random.Next(letter_exercises.Count)];
+                case "word":
+                    return word_exercises[random.Next(word_exercises.Count)];
+                case "sentence":
+                    return sentence_exercises[random.Next(sentence_exercises.Count)];
+                default:
+                    return letter_exercises[random.Next(letter_exercises.Count)];
+            }
+            
+            
+        }
+
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            exerciseTextBox.Text = textInput.Text;
+            
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -61,7 +109,8 @@ namespace Trainer
 
         private void timeUp()
         {
-            timerLabel.Text = "Время вышло!";
+            timerLabel.Text = $"Время вышло! Вы успели ввести: {exercise_completed_counter} ";
+            exercise_completed_counter = 0;
             exerciseTextBox.Text = "Здесь будет текст упражнений...";
             exerciseTextBox.Enabled = false;
             startButton.Enabled = true;
@@ -69,6 +118,7 @@ namespace Trainer
             textInput.Enabled = false;
             textInput.BackColor = ColorTranslator.FromHtml("#C0C0C0");
             textInput.Cursor = Cursors.Cross;
+            textBoxIndicator.BackColor = ColorTranslator.FromHtml("#4169E1");
             startButton.BackColor = ColorTranslator.FromHtml("#FFD700");
             exerciseTimer.Stop();
             radioPanel.Enabled = true;
@@ -83,7 +133,8 @@ namespace Trainer
         private void startExercise()
         {
             exerciseTextBox.Enabled = true;
-            exerciseTextBox.Text = mode; // тут будем подтягивать слова из БД
+            current_exercise = GetRandomExercise();
+            exerciseTextBox.Text = current_exercise.value; // тут будем подтягивать слова из БД
             timeLeft = Convert.ToInt32(Seconds.Value);
             timerLabel.Text = timeLeft + " секунд";
             exerciseTimer.Start();
@@ -101,7 +152,23 @@ namespace Trainer
         {
             if (e.KeyChar == (char)Keys.Return)
             {
-                textInput.Text = "";
+                // Что мы имеем:
+                // Если мы программно создаём какую-то запись, то она, видимо, сохраняется в какой-то временной таблице. Тем не менее, эти данные сохраняются где-то в БД между запусками. НО в DB Browsere'e не отображаются.
+                // И далее, если через GUI дб-браузера я добавляю новую запись и сохраню, то те что были добавлены ранее программно - будут снесены нахуй. Но новая запись сохранится перманентно, всё ок.
+                
+                if (textInput.Text.Trim() == current_exercise.value)
+                {
+                    current_exercise = GetRandomExercise();
+                    textInput.Text = "";
+                    exerciseTextBox.Text = current_exercise.value;
+                    textBoxIndicator.BackColor = ColorTranslator.FromHtml("#4169E1");
+                    exercise_completed_counter += 1;
+                }
+                else
+                {
+                    textBoxIndicator.BackColor = ColorTranslator.FromHtml("#F55762");
+                }
+                
             }
         }
 
@@ -118,6 +185,29 @@ namespace Trainer
         private void modeRadio3_CheckedChanged(object sender, EventArgs e)
         {
             mode = "sentence";
+        }
+
+        private void textCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (textCheck.Checked)
+            {
+                regime_text = true;
+            } else
+            {
+                regime_text = false;
+            }
+        }
+
+        private void hotKeyCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (hotKeyCheck.Checked)
+            {
+                regime_hot_key = true;
+            }
+            else
+            {
+                regime_hot_key = false;
+            }
         }
     }
 }

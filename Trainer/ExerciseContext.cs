@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Data.Entity;
+using System.Data.SQLite;
 
 namespace Trainer {
 
@@ -6,19 +7,10 @@ namespace Trainer {
     {
         public DbSet<Exercise> Exercises { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseSqlite("Data Source=exercises.db");
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public ExerciseContext() : base(new SQLiteConnection(@"Data Source=./trainer_database.db; Version=3"), true)
         {
-            modelBuilder.Entity<Exercise>().HasData(
-                new Exercise { Mode = "letter", Value = "а" },
-                new Exercise { Mode = "word", Value = "капибара" },
-                new Exercise { Mode = "word", Value = "карабин" },
-                new Exercise { Mode = "sentence", Value = "Пришел увидел победил." }
-            );
-
-    
+            Database.SetInitializer<ExerciseContext>(null);
+            DbConfiguration.SetConfiguration(new SQLiteConfig());
         }
     }
 }
