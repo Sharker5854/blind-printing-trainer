@@ -1,18 +1,22 @@
+using System;
+
 namespace Trainer
 {
     public partial class TrainerForm : Form
 
         /*
          TODO:
-         Найти БД со словами и преложениями
-         Сохранить её локально
          Запретить копировать из exerciseTextBox
-         Ограничить кол-во выводимых упражнений в соответствии со значением quantity ( при каждом верно введенном делать quantity-1, и когда оно будет равно нулю завершать тренировку и выводить: "Вы уложились раньше времени! Кол-во введенных {}. Затраченное время {}." )
-        */
+         Убрать звук при нажатии на Enter
+         Авторизация (просто имя, чтобы различать статистику для двух разных юзеров)
+         Запись статистики в БД
+         Форма с выводом статистики для определенного юзера
+         Тренажер горячих клавиш???
+         */
     {
-        public int timeLeft = 30;
         public string mode = "letter";
         public int quantity = 10;
+        public int timeLeft = 30;
         public bool regime_text = true;
         public bool regime_hot_key = false;
 
@@ -69,9 +73,44 @@ namespace Trainer
             
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private string getModeRussian()
         {
-            
+            switch (mode)
+            {
+                case "letter":
+                    return "символов";
+                case "word":
+                    return "слов";
+                case "sentence":
+                    return "предложений";
+                default:
+                    return "символов";
+            }
+        }
+
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            startExercise();
+        }
+
+        private void startExercise()
+        {
+            exerciseTextBox.Enabled = true;
+            current_exercise = GetRandomExercise();
+            exerciseTextBox.Text = current_exercise.value; // тут будем подтягивать слова из БД
+            quantity = Convert.ToInt32(Quantity.Value);
+            Quantity.Enabled = false;
+            timeLeft = Convert.ToInt32(Seconds.Value);
+            timerLabel.Text = timeLeft + " секунд";
+            Seconds.Enabled = false;
+            exerciseTimer.Start();
+            startButton.Enabled = false;
+            startButton.BackColor = ColorTranslator.FromHtml("#C8D3D5");
+            textInput.Enabled = true;
+            textInput.BackColor = ColorTranslator.FromHtml("#FFFFFF");
+            textInput.Cursor = Cursors.IBeam;
+            textInput.Select();
+            radioPanel.Enabled = false;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -109,7 +148,7 @@ namespace Trainer
 
         private void timeUp()
         {
-            timerLabel.Text = $"Время вышло! Вы успели ввести: {exercise_completed_counter} ";
+            timerLabel.Text = $"Время вышло! Вы успели ввести {exercise_completed_counter} {getModeRussian()}";
             exercise_completed_counter = 0;
             exerciseTextBox.Text = "Здесь будет текст упражнений...";
             exerciseTextBox.Enabled = false;
@@ -122,30 +161,15 @@ namespace Trainer
             startButton.BackColor = ColorTranslator.FromHtml("#FFD700");
             exerciseTimer.Stop();
             radioPanel.Enabled = true;
+            Quantity.Enabled = true;
+            Seconds.Enabled = true;
         }
 
-
-        private void startButton_Click(object sender, EventArgs e)
+        private void finishEarlier()
         {
-            startExercise();
-        }
-
-        private void startExercise()
-        {
-            exerciseTextBox.Enabled = true;
-            current_exercise = GetRandomExercise();
-            exerciseTextBox.Text = current_exercise.value; // тут будем подтягивать слова из БД
-            timeLeft = Convert.ToInt32(Seconds.Value);
-            timerLabel.Text = timeLeft + " секунд";
-            exerciseTimer.Start();
-            startButton.Enabled = false;
-            startButton.BackColor = ColorTranslator.FromHtml("#C8D3D5");
-            quantity = Convert.ToInt32(Quantity.Value);
-            textInput.Enabled = true;
-            textInput.BackColor = ColorTranslator.FromHtml("#FFFFFF");
-            textInput.Cursor = Cursors.IBeam;
-            textInput.Select();
-            radioPanel.Enabled = false;
+            int exc_completed = exercise_completed_counter;
+            timeUp();
+            timerLabel.Text = $"Поздравляем! Вы успели ввести {exc_completed} {getModeRussian()} досрочно!";
         }
 
         private void CheckEnterKeyPressing(object? sender, KeyPressEventArgs e)
@@ -158,11 +182,20 @@ namespace Trainer
                 
                 if (textInput.Text.Trim() == current_exercise.value)
                 {
-                    current_exercise = GetRandomExercise();
-                    textInput.Text = "";
-                    exerciseTextBox.Text = current_exercise.value;
-                    textBoxIndicator.BackColor = ColorTranslator.FromHtml("#4169E1");
-                    exercise_completed_counter += 1;
+                    quantity -= 1;
+                    if (quantity > 0)
+                    {
+                        current_exercise = GetRandomExercise();
+                        textInput.Text = "";
+                        exerciseTextBox.Text = current_exercise.value;
+                        textBoxIndicator.BackColor = ColorTranslator.FromHtml("#4169E1");
+                        exercise_completed_counter += 1;
+                    }
+                    else
+                    {
+                        exercise_completed_counter += 1;
+                        finishEarlier();
+                    }
                 }
                 else
                 {
@@ -209,5 +242,6 @@ namespace Trainer
                 regime_hot_key = false;
             }
         }
+
     }
 }

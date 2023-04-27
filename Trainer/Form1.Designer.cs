@@ -57,9 +57,7 @@
             // 
             resources.ApplyResources(this.textInput, "textInput");
             this.textInput.BackColor = System.Drawing.Color.Silver;
-            this.textInput.Name = "textInput";
-            this.textInput.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
+            this.textInput.Name = "textInput"; 
             // modeRadio1
             // 
             resources.ApplyResources(this.modeRadio1, "modeRadio1");
@@ -123,8 +121,7 @@
             10,
             0,
             0,
-            0});
-            // 
+            0});            // 
             // textBoxIndicator
             // 
             resources.ApplyResources(this.textBoxIndicator, "textBoxIndicator");
@@ -153,8 +150,7 @@
             30,
             0,
             0,
-            0});
-            // 
+            0});            // 
             // quantityLabel
             // 
             resources.ApplyResources(this.quantityLabel, "quantityLabel");
