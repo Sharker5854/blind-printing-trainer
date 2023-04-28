@@ -25,7 +25,7 @@ class DBFiller:
             case FileMode.Word:
                 self.words = set(self._read_words_from_file(file_path))
             case FileMode.Sentence:
-                self.sentences = set(self._read_sentences_from_file(file_path))
+                self.sentences = set(self._read_sentences_from_file(file_path)).difference({"",})
 
     def _read_letters_from_file(self, path) -> list:
         """ Collect data specially from the file with symbols (no separators) """
@@ -40,7 +40,7 @@ class DBFiller:
     def _read_sentences_from_file(self, path) -> list:
         """ Collect data specially from the file with sentences (separator: '. ') """
         with open(path, mode="r", encoding="utf-8") as file:
-            return file.read().split(". ")
+            return file.read().split(".\n")
         
     def write_in_db(self, mode: str) -> None:
         """Write data into the database"""
@@ -88,12 +88,13 @@ class DBFiller:
         
 
 def main() -> None:
-    filler = DBFiller(database_path="./Trainer/trainer_database.db")                                # specify path to database
-    filler.read_file(file_path="./Exercise_sources/letter_exercises.txt", mode=FileMode.Letter)     # reading data from file with letters
-    filler.read_file(file_path="./Exercise_sources/word_exercises.txt", mode=FileMode.Word)         # reading data from file with words
-    filler.write_in_db(FileMode.Letter)                                                             # writing letters from file into database table
-    filler.write_in_db(FileMode.Word)                                                               # writing words from file into database table
-
+    filler = DBFiller(database_path="./Trainer/trainer_database.db")                                    # specify path to database
+    filler.read_file(file_path="./Exercise_sources/letter_exercises.txt", mode=FileMode.Letter)         # reading data from file with letters
+    filler.read_file(file_path="./Exercise_sources/word_exercises.txt", mode=FileMode.Word)             # reading data from file with words
+    filler.read_file(file_path="./Exercise_sources/sentence_exercises.txt", mode=FileMode.Sentence)     # reading data from file with sentences
+    filler.write_in_db(FileMode.Letter)                                                                 # writing letters from file into database table
+    filler.write_in_db(FileMode.Word)                                                                   # writing words from file into database table
+    filler.write_in_db(FileMode.Sentence)                                                               # writing sentences from file into database table
 
 if __name__ == "__main__":
     main()

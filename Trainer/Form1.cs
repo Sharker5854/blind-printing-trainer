@@ -1,4 +1,6 @@
 using System;
+using System.Security.Cryptography.Xml;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Trainer
 {
@@ -7,13 +9,15 @@ namespace Trainer
         /*
          TODO:
          Запретить копировать из exerciseTextBox
-         Убрать звук при нажатии на Enter
          Авторизация (просто имя, чтобы различать статистику для двух разных юзеров)
          Запись статистики в БД
          Форма с выводом статистики для определенного юзера
+         Памятки
          Тренажер горячих клавиш???
-         */
+        */
     {
+        public User current_user;
+
         public string mode = "letter";
         public int quantity = 10;
         public int timeLeft = 30;
@@ -22,26 +26,37 @@ namespace Trainer
 
         public int exercise_completed_counter = 0;
 
-        public ExerciseContext db;
+        public ExerciseContext exc_db_context;
+        public UserContext user_db_context;
         public List<Exercise> letter_exercises = new List<Exercise>();
         public List<Exercise> word_exercises = new List<Exercise>();
         public List<Exercise> sentence_exercises = new List<Exercise>();
         public Exercise? current_exercise;
 
-
+        public StatisticSaver statistic_saver;
 
         public TrainerForm()
         {
             InitializeComponent();
-            db = new ExerciseContext();
+            exc_db_context = new ExerciseContext();
+            user_db_context = new UserContext();
+            current_user = AuthorizeUser("Vovcha"); // сюда передаем введенный пользователем ник
+            statistic_saver = new StatisticSaver(current_user);
             DivideExercisesInLists();
             textInput.KeyPress += new KeyPressEventHandler(CheckEnterKeyPressing);
             exerciseTextBox.ForeColor = ColorTranslator.FromHtml("#CD5C5C");
         }
 
+        public User AuthorizeUser(string username)
+        {
+            // Этот метод позже поместим в качестве проверки в форму авторизации. И если пользователь найден, то перекидываем на Form1 с заранее известным значением current_user. Если не найден, то даём пиздюлей.
+            var user = user_db_context.Users.First(user => user.username == username);
+            return user;
+        }
+
         public void DivideExercisesInLists()
         {
-            foreach (Exercise exercise in db.Exercises)
+            foreach (Exercise exercise in exc_db_context.Exercises)
             {
                 switch (exercise.type)
                 {
@@ -101,6 +116,7 @@ namespace Trainer
             quantity = Convert.ToInt32(Quantity.Value);
             Quantity.Enabled = false;
             timeLeft = Convert.ToInt32(Seconds.Value);
+            statistic_saver.round_time_seconds = timeLeft;
             timerLabel.Text = timeLeft + " секунд";
             Seconds.Enabled = false;
             exerciseTimer.Start();
@@ -163,11 +179,13 @@ namespace Trainer
             radioPanel.Enabled = true;
             Quantity.Enabled = true;
             Seconds.Enabled = true;
+            statistic_saver.WriteToDb();
         }
 
         private void finishEarlier()
         {
             int exc_completed = exercise_completed_counter;
+            statistic_saver.round_time_seconds -= timeLeft;
             timeUp();
             timerLabel.Text = $"Поздравляем! Вы успели ввести {exc_completed} {getModeRussian()} досрочно!";
         }
@@ -179,10 +197,11 @@ namespace Trainer
                 // Что мы имеем:
                 // Если мы программно создаём какую-то запись, то она, видимо, сохраняется в какой-то временной таблице. Тем не менее, эти данные сохраняются где-то в БД между запусками. НО в DB Browsere'e не отображаются.
                 // И далее, если через GUI дб-браузера я добавляю новую запись и сохраню, то те что были добавлены ранее программно - будут снесены нахуй. Но новая запись сохранится перманентно, всё ок.
-                
+                e.Handled = true;
                 if (textInput.Text.Trim() == current_exercise.value)
                 {
                     quantity -= 1;
+                    statistic_saver.symbols_entered += current_exercise.value.Length;
                     if (quantity > 0)
                     {
                         current_exercise = GetRandomExercise();
@@ -200,6 +219,7 @@ namespace Trainer
                 else
                 {
                     textBoxIndicator.BackColor = ColorTranslator.FromHtml("#F55762");
+                    statistic_saver.mistakes += 1;
                 }
                 
             }

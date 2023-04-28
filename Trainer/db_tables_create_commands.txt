@@ -1,0 +1,3 @@
+CREATE TABLE "Users" ("id" INTEGER NOT NULL UNIQUE,"username" TEXT NOT NULL UNIQUE, PRIMARY KEY("id" AUTOINCREMENT))
+
+CREATE TABLE "Statistics" ("id" INTEGER NOT NULL UNIQUE, "user_id" INTEGER NOT NULL UNIQUE, "total_time_minutes" INTEGER NOT NULL, "total_symbols" INTEGER NOT NULL, "average_symbols_in_minute" INTEGER NOT NULL, "average_mistakes" INTEGER NOT NULL, PRIMARY KEY("id" AUTOINCREMENT), FOREIGN KEY("user_id") REFERENCES Users(id))
