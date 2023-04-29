@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,41 +9,51 @@ namespace Trainer
 {
     public class StatisticSaver
     {
-        // В конце каждого раунда создается экземпляр этого класса
+        // В начале каждого раунда создается экземпляр этого класса
         // И отсюда статистика
         public User user;
+        private Statistic user_statistic;
         public int round_time_seconds;
         public int symbols_entered;
-        public int mistakes; // кол-во раз, когда юзер нажал enter и введенный им текст не соответствовал ожидаемому (крч textInput загорелся красным)
+        public int mistakes;
+        private StatisticContext stat_db_context;
 
         public StatisticSaver(User user)
         {
             this.user = user;
+            stat_db_context = new StatisticContext();
         }
 
         public void WriteToDb()
         {
-            // Заносим данные в БД
-            Console.WriteLine(user.username);
-            Console.WriteLine(round_time_seconds + "секунд затрачено");
-            Console.WriteLine(symbols_entered + "символов введено");
-            Console.WriteLine(mistakes + "ошибок допущено");
+            user_statistic = stat_db_context.Statistics.First(stat => stat.user_id == user.id);
+            user_statistic.total_rounds = user_statistic.total_rounds + 1;
+            user_statistic.total_time_minutes = user_statistic.total_time_minutes + ((double)round_time_seconds / 60);
+            user_statistic.total_symbols = user_statistic.total_symbols + symbols_entered;
+            user_statistic.average_symbols_in_minute = CalculateNewAverageSymbolsPerMinuteValue();
+            user_statistic.total_mistakes = user_statistic.total_mistakes + mistakes;
+            user_statistic.average_mistakes_per_round = CalculateAverageMistakesPerRound();
+            stat_db_context.SaveChanges();
             ResetValues();
         }
 
         public int CalculateNewAverageSymbolsPerMinuteValue()
         {
-            // Рассчитываем:
-            // Получаем из БД из таблицы Statistic значение total_symbols (по внешнему ключу юзера)
-            // Прибавляем   symbols_entered
-            // Получаем из БД из таблицы Statistic значение total_time_minutes (по внешнему ключу юзера)
-            // Прибавляем   round_time_seconds // 60  чтоб получить кол-во минут (подумать над округлением времени раундов, которые длились меньше минуты)
-            // Сумму введенных символов делим на сумму всех минут
-            return 1;
+            int total_symbols = user_statistic.total_symbols + symbols_entered;
+            double total_time_minutes = user_statistic.total_time_minutes + ((double)round_time_seconds / 60);
+            return (int)Math.Round((double)total_symbols / total_time_minutes);
+        }
+
+        public int CalculateAverageMistakesPerRound()
+        {
+            int total_mistakes = user_statistic.total_mistakes + mistakes;
+            int total_rounds = user_statistic.total_rounds + 1;
+            return (int)Math.Round((double)total_mistakes / total_rounds);
         }
 
         private void ResetValues()
         {
+            user_statistic = null;
             round_time_seconds = 0;
             symbols_entered = 0;
             mistakes = 0;

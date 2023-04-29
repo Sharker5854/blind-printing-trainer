@@ -9,7 +9,7 @@ namespace Trainer
         /*
          TODO:
          Запретить копировать из exerciseTextBox
-         Авторизация (просто имя, чтобы различать статистику для двух разных юзеров)
+         Авторизация (просто имя, чтобы различать статистику для двух разных юзеров. При первой регистрации юзера также создавать пустую запись в Statistics с привязке к ID этого юзера)
          Запись статистики в БД
          Форма с выводом статистики для определенного юзера
          Памятки
@@ -112,7 +112,7 @@ namespace Trainer
         {
             exerciseTextBox.Enabled = true;
             current_exercise = GetRandomExercise();
-            exerciseTextBox.Text = current_exercise.value; // тут будем подтягивать слова из БД
+            exerciseTextBox.Text = current_exercise.value;
             quantity = Convert.ToInt32(Quantity.Value);
             Quantity.Enabled = false;
             timeLeft = Convert.ToInt32(Seconds.Value);
