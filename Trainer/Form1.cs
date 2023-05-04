@@ -7,15 +7,17 @@ namespace Trainer
 {
     public partial class TrainerForm : Form
 
-        /*
-         TODO:
-         Запретить копировать из exerciseTextBox
-         Авторизация (просто имя, чтобы различать статистику для двух разных юзеров. При первой регистрации юзера также создавать пустую запись в Statistics с привязке к ID этого юзера)
-         Запись статистики в БД
-         Форма с выводом статистики для определенного юзера
-         Памятки
-         Тренажер горячих клавиш???
-        */
+    /*
+     TODO:
+     Колбэк на закрытие окна тренажёра: также закрывать окно авторизации, которое просто спрятано
+     Проверка существует ли юзер при авторизации (если нет, то создавать его и статистику для него)
+     Центрировать окна при открытии
+     Запретить копировать из exerciseTextBox
+     Авторизация (просто имя, чтобы различать статистику для двух разных юзеров. При первой регистрации юзера также создавать пустую запись в Statistics с привязке к ID этого юзера)
+     Форма с выводом статистики для определенного юзера
+     Памятки
+     Тренажер горячих клавиш???
+    */
     {
         public User current_user;
 
@@ -85,8 +87,8 @@ namespace Trainer
                 default:
                     return letter_exercises[random.Next(letter_exercises.Count)];
             }
-            
-            
+
+
         }
 
         private string getModeRussian()
@@ -222,7 +224,7 @@ namespace Trainer
                     textBoxIndicator.BackColor = ColorTranslator.FromHtml("#F55762");
                     statistic_saver.mistakes += 1;
                 }
-                
+
             }
         }
 
@@ -246,7 +248,8 @@ namespace Trainer
             if (textCheck.Checked)
             {
                 regime_text = true;
-            } else
+            }
+            else
             {
                 regime_text = false;
             }
@@ -263,6 +266,5 @@ namespace Trainer
                 regime_hot_key = false;
             }
         }
-
     }
 }

@@ -28,207 +28,201 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrainerForm));
-            this.textInput = new System.Windows.Forms.TextBox();
-            this.modeRadio1 = new System.Windows.Forms.RadioButton();
-            this.modeRadio2 = new System.Windows.Forms.RadioButton();
-            this.modeRadio3 = new System.Windows.Forms.RadioButton();
-            this.startButton = new System.Windows.Forms.Button();
-            this.radioPanel = new System.Windows.Forms.Panel();
-            this.exerciseTimer = new System.Windows.Forms.Timer(this.components);
-            this.Quantity = new System.Windows.Forms.NumericUpDown();
-            this.textBoxIndicator = new System.Windows.Forms.Panel();
-            this.timerLabel = new System.Windows.Forms.Label();
-            this.mainLabel = new System.Windows.Forms.Label();
-            this.Seconds = new System.Windows.Forms.NumericUpDown();
-            this.quantityLabel = new System.Windows.Forms.Label();
-            this.timeLabel = new System.Windows.Forms.Label();
-            this.exerciseTextBox = new System.Windows.Forms.TextBox();
-            this.textCheck = new System.Windows.Forms.CheckBox();
-            this.hotKeyCheck = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.radioPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Quantity)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Seconds)).BeginInit();
-            this.SuspendLayout();
+            textInput = new TextBox();
+            modeRadio1 = new RadioButton();
+            modeRadio2 = new RadioButton();
+            modeRadio3 = new RadioButton();
+            startButton = new Button();
+            radioPanel = new Panel();
+            exerciseTimer = new System.Windows.Forms.Timer(components);
+            Quantity = new NumericUpDown();
+            textBoxIndicator = new Panel();
+            timerLabel = new Label();
+            mainLabel = new Label();
+            Seconds = new NumericUpDown();
+            quantityLabel = new Label();
+            timeLabel = new Label();
+            exerciseTextBox = new TextBox();
+            textCheck = new CheckBox();
+            hotKeyCheck = new CheckBox();
+            label1 = new Label();
+            radioPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)Quantity).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)Seconds).BeginInit();
+            SuspendLayout();
             // 
             // textInput
             // 
-            resources.ApplyResources(this.textInput, "textInput");
-            this.textInput.BackColor = System.Drawing.Color.Silver;
-            this.textInput.Name = "textInput"; 
+            resources.ApplyResources(textInput, "textInput");
+            textInput.BackColor = Color.Silver;
+            textInput.Name = "textInput";
+            // 
             // modeRadio1
             // 
-            resources.ApplyResources(this.modeRadio1, "modeRadio1");
-            this.modeRadio1.BackColor = System.Drawing.Color.Transparent;
-            this.modeRadio1.Checked = true;
-            this.modeRadio1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.modeRadio1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(92)))), ((int)(((byte)(0)))));
-            this.modeRadio1.Name = "modeRadio1";
-            this.modeRadio1.TabStop = true;
-            this.modeRadio1.UseVisualStyleBackColor = false;
-            this.modeRadio1.CheckedChanged += new System.EventHandler(this.modeRadio1_CheckedChanged);
+            resources.ApplyResources(modeRadio1, "modeRadio1");
+            modeRadio1.BackColor = Color.Transparent;
+            modeRadio1.Checked = true;
+            modeRadio1.Cursor = Cursors.Hand;
+            modeRadio1.ForeColor = Color.FromArgb(255, 92, 0);
+            modeRadio1.Name = "modeRadio1";
+            modeRadio1.TabStop = true;
+            modeRadio1.UseVisualStyleBackColor = false;
+            modeRadio1.CheckedChanged += modeRadio1_CheckedChanged;
             // 
             // modeRadio2
             // 
-            resources.ApplyResources(this.modeRadio2, "modeRadio2");
-            this.modeRadio2.BackColor = System.Drawing.Color.Transparent;
-            this.modeRadio2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.modeRadio2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(92)))), ((int)(((byte)(0)))));
-            this.modeRadio2.Name = "modeRadio2";
-            this.modeRadio2.UseVisualStyleBackColor = false;
-            this.modeRadio2.CheckedChanged += new System.EventHandler(this.modeRadio2_CheckedChanged);
+            resources.ApplyResources(modeRadio2, "modeRadio2");
+            modeRadio2.BackColor = Color.Transparent;
+            modeRadio2.Cursor = Cursors.Hand;
+            modeRadio2.ForeColor = Color.FromArgb(255, 92, 0);
+            modeRadio2.Name = "modeRadio2";
+            modeRadio2.UseVisualStyleBackColor = false;
+            modeRadio2.CheckedChanged += modeRadio2_CheckedChanged;
             // 
             // modeRadio3
             // 
-            resources.ApplyResources(this.modeRadio3, "modeRadio3");
-            this.modeRadio3.BackColor = System.Drawing.Color.Transparent;
-            this.modeRadio3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.modeRadio3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(92)))), ((int)(((byte)(0)))));
-            this.modeRadio3.Name = "modeRadio3";
-            this.modeRadio3.UseVisualStyleBackColor = false;
-            this.modeRadio3.CheckedChanged += new System.EventHandler(this.modeRadio3_CheckedChanged);
+            resources.ApplyResources(modeRadio3, "modeRadio3");
+            modeRadio3.BackColor = Color.Transparent;
+            modeRadio3.Cursor = Cursors.Hand;
+            modeRadio3.ForeColor = Color.FromArgb(255, 92, 0);
+            modeRadio3.Name = "modeRadio3";
+            modeRadio3.UseVisualStyleBackColor = false;
+            modeRadio3.CheckedChanged += modeRadio3_CheckedChanged;
             // 
             // startButton
             // 
-            resources.ApplyResources(this.startButton, "startButton");
-            this.startButton.BackColor = System.Drawing.Color.Gold;
-            this.startButton.Name = "startButton";
-            this.startButton.UseVisualStyleBackColor = false;
-            this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            resources.ApplyResources(startButton, "startButton");
+            startButton.BackColor = Color.Gold;
+            startButton.Name = "startButton";
+            startButton.UseVisualStyleBackColor = false;
+            startButton.Click += startButton_Click;
             // 
             // radioPanel
             // 
-            resources.ApplyResources(this.radioPanel, "radioPanel");
-            this.radioPanel.BackColor = System.Drawing.Color.Transparent;
-            this.radioPanel.Controls.Add(this.modeRadio3);
-            this.radioPanel.Controls.Add(this.modeRadio1);
-            this.radioPanel.Controls.Add(this.modeRadio2);
-            this.radioPanel.Name = "radioPanel";
+            resources.ApplyResources(radioPanel, "radioPanel");
+            radioPanel.BackColor = Color.Transparent;
+            radioPanel.Controls.Add(modeRadio3);
+            radioPanel.Controls.Add(modeRadio1);
+            radioPanel.Controls.Add(modeRadio2);
+            radioPanel.Name = "radioPanel";
             // 
             // exerciseTimer
             // 
-            this.exerciseTimer.Interval = 1000;
-            this.exerciseTimer.Tick += new System.EventHandler(this.timer1_Tick);
+            exerciseTimer.Interval = 1000;
+            exerciseTimer.Tick += timer1_Tick;
             // 
             // Quantity
             // 
-            resources.ApplyResources(this.Quantity, "Quantity");
-            this.Quantity.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.Quantity.Name = "Quantity";
-            this.Quantity.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});            // 
+            resources.ApplyResources(Quantity, "Quantity");
+            Quantity.BackColor = Color.WhiteSmoke;
+            Quantity.Name = "Quantity";
+            Quantity.Value = new decimal(new int[] { 10, 0, 0, 0 });
+            // 
             // textBoxIndicator
             // 
-            resources.ApplyResources(this.textBoxIndicator, "textBoxIndicator");
-            this.textBoxIndicator.BackColor = System.Drawing.Color.RoyalBlue;
-            this.textBoxIndicator.Name = "textBoxIndicator";
+            resources.ApplyResources(textBoxIndicator, "textBoxIndicator");
+            textBoxIndicator.BackColor = Color.RoyalBlue;
+            textBoxIndicator.Name = "textBoxIndicator";
             // 
             // timerLabel
             // 
-            resources.ApplyResources(this.timerLabel, "timerLabel");
-            this.timerLabel.BackColor = System.Drawing.Color.Transparent;
-            this.timerLabel.ForeColor = System.Drawing.Color.IndianRed;
-            this.timerLabel.Name = "timerLabel";
+            resources.ApplyResources(timerLabel, "timerLabel");
+            timerLabel.BackColor = Color.Transparent;
+            timerLabel.ForeColor = Color.IndianRed;
+            timerLabel.Name = "timerLabel";
             // 
             // mainLabel
             // 
-            resources.ApplyResources(this.mainLabel, "mainLabel");
-            this.mainLabel.BackColor = System.Drawing.Color.Transparent;
-            this.mainLabel.ForeColor = System.Drawing.Color.Gold;
-            this.mainLabel.Name = "mainLabel";
+            resources.ApplyResources(mainLabel, "mainLabel");
+            mainLabel.BackColor = Color.Transparent;
+            mainLabel.ForeColor = Color.Gold;
+            mainLabel.Name = "mainLabel";
             // 
             // Seconds
             // 
-            resources.ApplyResources(this.Seconds, "Seconds");
-            this.Seconds.Name = "Seconds";
-            this.Seconds.Value = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});            // 
+            resources.ApplyResources(Seconds, "Seconds");
+            Seconds.Name = "Seconds";
+            Seconds.Value = new decimal(new int[] { 30, 0, 0, 0 });
+            // 
             // quantityLabel
             // 
-            resources.ApplyResources(this.quantityLabel, "quantityLabel");
-            this.quantityLabel.BackColor = System.Drawing.Color.Transparent;
-            this.quantityLabel.ForeColor = System.Drawing.Color.Gold;
-            this.quantityLabel.Name = "quantityLabel";
+            resources.ApplyResources(quantityLabel, "quantityLabel");
+            quantityLabel.BackColor = Color.Transparent;
+            quantityLabel.ForeColor = Color.Gold;
+            quantityLabel.Name = "quantityLabel";
             // 
             // timeLabel
             // 
-            resources.ApplyResources(this.timeLabel, "timeLabel");
-            this.timeLabel.BackColor = System.Drawing.Color.Transparent;
-            this.timeLabel.ForeColor = System.Drawing.Color.Gold;
-            this.timeLabel.Name = "timeLabel";
+            resources.ApplyResources(timeLabel, "timeLabel");
+            timeLabel.BackColor = Color.Transparent;
+            timeLabel.ForeColor = Color.Gold;
+            timeLabel.Name = "timeLabel";
             // 
             // exerciseTextBox
             // 
-            resources.ApplyResources(this.exerciseTextBox, "exerciseTextBox");
-            this.exerciseTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(41)))), ((int)(((byte)(62)))));
-            this.exerciseTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.exerciseTextBox.ForeColor = System.Drawing.Color.IndianRed;
-            this.exerciseTextBox.Name = "exerciseTextBox";
-            this.exerciseTextBox.ReadOnly = true;
-            this.exerciseTextBox.TabStop = false;
+            resources.ApplyResources(exerciseTextBox, "exerciseTextBox");
+            exerciseTextBox.BackColor = Color.FromArgb(28, 41, 62);
+            exerciseTextBox.BorderStyle = BorderStyle.None;
+            exerciseTextBox.ForeColor = Color.IndianRed;
+            exerciseTextBox.Name = "exerciseTextBox";
+            exerciseTextBox.ReadOnly = true;
+            exerciseTextBox.TabStop = false;
             // 
             // textCheck
             // 
-            resources.ApplyResources(this.textCheck, "textCheck");
-            this.textCheck.Checked = true;
-            this.textCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.textCheck.ForeColor = System.Drawing.Color.Gold;
-            this.textCheck.Name = "textCheck";
-            this.textCheck.UseVisualStyleBackColor = true;
-            this.textCheck.CheckedChanged += new System.EventHandler(this.textCheck_CheckedChanged);
+            resources.ApplyResources(textCheck, "textCheck");
+            textCheck.Checked = true;
+            textCheck.CheckState = CheckState.Checked;
+            textCheck.ForeColor = Color.Gold;
+            textCheck.Name = "textCheck";
+            textCheck.UseVisualStyleBackColor = true;
+            textCheck.CheckedChanged += textCheck_CheckedChanged;
             // 
             // hotKeyCheck
             // 
-            resources.ApplyResources(this.hotKeyCheck, "hotKeyCheck");
-            this.hotKeyCheck.ForeColor = System.Drawing.Color.Gold;
-            this.hotKeyCheck.Name = "hotKeyCheck";
-            this.hotKeyCheck.UseVisualStyleBackColor = true;
-            this.hotKeyCheck.CheckedChanged += new System.EventHandler(this.hotKeyCheck_CheckedChanged);
+            resources.ApplyResources(hotKeyCheck, "hotKeyCheck");
+            hotKeyCheck.ForeColor = Color.Gold;
+            hotKeyCheck.Name = "hotKeyCheck";
+            hotKeyCheck.UseVisualStyleBackColor = true;
+            hotKeyCheck.CheckedChanged += hotKeyCheck_CheckedChanged;
             // 
             // label1
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.ForeColor = System.Drawing.Color.IndianRed;
-            this.label1.Name = "label1";
+            resources.ApplyResources(label1, "label1");
+            label1.ForeColor = Color.IndianRed;
+            label1.Name = "label1";
             // 
             // TrainerForm
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(41)))), ((int)(((byte)(62)))));
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.hotKeyCheck);
-            this.Controls.Add(this.textCheck);
-            this.Controls.Add(this.exerciseTextBox);
-            this.Controls.Add(this.timeLabel);
-            this.Controls.Add(this.quantityLabel);
-            this.Controls.Add(this.Seconds);
-            this.Controls.Add(this.timerLabel);
-            this.Controls.Add(this.textBoxIndicator);
-            this.Controls.Add(this.Quantity);
-            this.Controls.Add(this.radioPanel);
-            this.Controls.Add(this.startButton);
-            this.Controls.Add(this.textInput);
-            this.Controls.Add(this.mainLabel);
-            this.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.Name = "TrainerForm";
-            this.radioPanel.ResumeLayout(false);
-            this.radioPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Quantity)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Seconds)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(28, 41, 62);
+            Controls.Add(label1);
+            Controls.Add(hotKeyCheck);
+            Controls.Add(textCheck);
+            Controls.Add(exerciseTextBox);
+            Controls.Add(timeLabel);
+            Controls.Add(quantityLabel);
+            Controls.Add(Seconds);
+            Controls.Add(timerLabel);
+            Controls.Add(textBoxIndicator);
+            Controls.Add(Quantity);
+            Controls.Add(radioPanel);
+            Controls.Add(startButton);
+            Controls.Add(textInput);
+            Controls.Add(mainLabel);
+            Cursor = Cursors.Cross;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            Name = "TrainerForm";
+            radioPanel.ResumeLayout(false);
+            radioPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)Quantity).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Seconds).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
