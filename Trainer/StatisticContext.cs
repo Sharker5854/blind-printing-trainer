@@ -7,7 +7,7 @@ namespace Trainer
     {
         public DbSet<Statistic> Statistics { get; set; }
 
-        public StatisticContext() : base(new SQLiteConnection(@"Data Source=./trainer_database.db; Version=3"), true)
+        public StatisticContext() : base(new SQLiteConnection(@"Data Source=trainer_database.db; Version=3"), true)
         {
             Database.SetInitializer<StatisticContext>(null);
             DbConfiguration.SetConfiguration(new SQLiteConfig());
