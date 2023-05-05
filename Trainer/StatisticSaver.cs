@@ -33,13 +33,6 @@ namespace Trainer
             user_statistic.total_mistakes = user_statistic.total_mistakes + mistakes;
             user_statistic.average_mistakes_per_round = CalculateAverageMistakesPerRound();
             stat_db_context.SaveChanges();
-            Console.WriteLine(stat_db_context.Database.Connection.ConnectionString);
-            Console.WriteLine(user_statistic.total_rounds);
-            Console.WriteLine(user_statistic.total_time_minutes);
-            Console.WriteLine(user_statistic.total_symbols);
-            Console.WriteLine(user_statistic.average_symbols_in_minute);
-            Console.WriteLine(user_statistic.total_mistakes);
-            Console.WriteLine(user_statistic.average_mistakes_per_round);
             ResetValues();
         }
 

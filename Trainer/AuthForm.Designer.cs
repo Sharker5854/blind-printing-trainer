@@ -81,6 +81,7 @@
             // authButton
             // 
             authButton.BackColor = Color.Gold;
+            authButton.Cursor = Cursors.Hand;
             authButton.Font = new Font("Cascadia Code", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
             authButton.ImeMode = ImeMode.NoControl;
             authButton.Location = new Point(328, 293);

@@ -9,11 +9,7 @@ namespace Trainer
 
     /*
      TODO:
-     Колбэк на закрытие окна тренажёра: также закрывать окно авторизации, которое просто спрятано
-     Проверка существует ли юзер при авторизации (если нет, то создавать его и статистику для него)
-     Центрировать окна при открытии
      Запретить копировать из exerciseTextBox
-     Авторизация (просто имя, чтобы различать статистику для двух разных юзеров. При первой регистрации юзера также создавать пустую запись в Statistics с привязке к ID этого юзера)
      Форма с выводом статистики для определенного юзера
      Памятки
      Тренажер горячих клавиш???
@@ -30,7 +26,6 @@ namespace Trainer
         public int exercise_completed_counter = 0;
 
         public ExerciseContext exc_db_context;
-        public UserContext user_db_context;
         public List<Exercise> letter_exercises = new List<Exercise>();
         public List<Exercise> word_exercises = new List<Exercise>();
         public List<Exercise> sentence_exercises = new List<Exercise>();
@@ -38,23 +33,16 @@ namespace Trainer
 
         public StatisticSaver statistic_saver;
 
-        public TrainerForm()
+        public TrainerForm(User current_user)
         {
             InitializeComponent();
+            this.current_user = current_user;
+            Console.WriteLine(this.current_user.username);
+            statistic_saver = new StatisticSaver(this.current_user);
             exc_db_context = new ExerciseContext();
-            user_db_context = new UserContext();
-            current_user = AuthorizeUser("Vovcha"); // сюда передаем введенный пользователем ник
-            statistic_saver = new StatisticSaver(current_user);
             DivideExercisesInLists();
             textInput.KeyPress += new KeyPressEventHandler(CheckEnterKeyPressing);
             exerciseTextBox.ForeColor = ColorTranslator.FromHtml("#CD5C5C");
-        }
-
-        public User AuthorizeUser(string username)
-        {
-            // Этот метод позже поместим в качестве проверки в форму авторизации. И если пользователь найден, то перекидываем на Form1 с заранее известным значением current_user. Если не найден, то даём пиздюлей.
-            var user = user_db_context.Users.First(user => user.username == username);
-            return user;
         }
 
         public void DivideExercisesInLists()

@@ -95,6 +95,7 @@
             // 
             resources.ApplyResources(startButton, "startButton");
             startButton.BackColor = Color.Gold;
+            startButton.Cursor = Cursors.Hand;
             startButton.Name = "startButton";
             startButton.UseVisualStyleBackColor = false;
             startButton.Click += startButton_Click;
@@ -175,6 +176,7 @@
             resources.ApplyResources(textCheck, "textCheck");
             textCheck.Checked = true;
             textCheck.CheckState = CheckState.Checked;
+            textCheck.Cursor = Cursors.Hand;
             textCheck.ForeColor = Color.Gold;
             textCheck.Name = "textCheck";
             textCheck.UseVisualStyleBackColor = true;
@@ -183,6 +185,7 @@
             // hotKeyCheck
             // 
             resources.ApplyResources(hotKeyCheck, "hotKeyCheck");
+            hotKeyCheck.Cursor = Cursors.Hand;
             hotKeyCheck.ForeColor = Color.Gold;
             hotKeyCheck.Name = "hotKeyCheck";
             hotKeyCheck.UseVisualStyleBackColor = true;

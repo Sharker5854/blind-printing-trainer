@@ -13,25 +13,67 @@ namespace Trainer
     public partial class AuthForm : Form
     {
         public string entered_username;
+        public UserContext user_db_context;
 
         public AuthForm()
         {
             InitializeComponent();
+            this.CenterToScreen();
+            user_db_context = new UserContext();
         }
 
         private void authButton_Click(object sender, EventArgs e)
         {
             entered_username = usernameInput.Text;
-            // Попробовать достать юзера с таким ником из БД.
-            // Если такого нет, то создать новую запись в Users и нулёвую запись в Statistics связанную с новоиспеченным юзером
-            Console.WriteLine(entered_username);
-            var trainer_form = new TrainerForm();
-            trainer_form.Location = this.Location;
-            trainer_form.StartPosition = FormStartPosition.Manual;
-            trainer_form.FormClosing += delegate { this.Show(); };
-            trainer_form.ShowDialog();
+            User? user = this.GetUserByUsername(entered_username);
+            if (user == null)
+            {
+                Console.WriteLine("Создаём кепочку!");
+                user = this.CreateNewUser(entered_username);
+            }
             this.Hide();
+            var trainer_form = new TrainerForm(user);
+            trainer_form.StartPosition = FormStartPosition.CenterScreen;
+            trainer_form.FormClosed += (s, args) => this.Close();
+            trainer_form.Show();
+            
+        }
+
+        public User? GetUserByUsername(string username)
+        {
+            User? user = user_db_context.Users.FirstOrDefault(user => user.username == username);
+            return user;
+        }
+
+        public User CreateNewUser(string username)
+        {
+            User new_user = new User(username);
+            user_db_context.Users.Add(new_user);
+            user_db_context.SaveChanges();
+            int new_user_id = this.GetUserByUsername(username).id;
+            Statistic new_statistic = new Statistic(new_user_id, 0, 0.0, 0, 0, 0, 0);
+            StatisticContext stat_db_context = new StatisticContext();
+            stat_db_context.Statistics.Add(new_statistic);
+            stat_db_context.SaveChanges();
+            return new_user;
         }
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
