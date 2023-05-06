@@ -45,9 +45,7 @@
             quantityLabel = new Label();
             timeLabel = new Label();
             exerciseTextBox = new TextBox();
-            textCheck = new CheckBox();
-            hotKeyCheck = new CheckBox();
-            label1 = new Label();
+            showStatTextBox = new TextBox();
             radioPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Quantity).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Seconds).BeginInit();
@@ -171,40 +169,25 @@
             exerciseTextBox.ReadOnly = true;
             exerciseTextBox.TabStop = false;
             // 
-            // textCheck
+            // showStatTextBox
             // 
-            resources.ApplyResources(textCheck, "textCheck");
-            textCheck.Checked = true;
-            textCheck.CheckState = CheckState.Checked;
-            textCheck.Cursor = Cursors.Hand;
-            textCheck.ForeColor = Color.Gold;
-            textCheck.Name = "textCheck";
-            textCheck.UseVisualStyleBackColor = true;
-            textCheck.CheckedChanged += textCheck_CheckedChanged;
-            // 
-            // hotKeyCheck
-            // 
-            resources.ApplyResources(hotKeyCheck, "hotKeyCheck");
-            hotKeyCheck.Cursor = Cursors.Hand;
-            hotKeyCheck.ForeColor = Color.Gold;
-            hotKeyCheck.Name = "hotKeyCheck";
-            hotKeyCheck.UseVisualStyleBackColor = true;
-            hotKeyCheck.CheckedChanged += hotKeyCheck_CheckedChanged;
-            // 
-            // label1
-            // 
-            resources.ApplyResources(label1, "label1");
-            label1.ForeColor = Color.IndianRed;
-            label1.Name = "label1";
+            resources.ApplyResources(showStatTextBox, "showStatTextBox");
+            showStatTextBox.BackColor = Color.FromArgb(28, 41, 62);
+            showStatTextBox.BorderStyle = BorderStyle.None;
+            showStatTextBox.Cursor = Cursors.Hand;
+            showStatTextBox.ForeColor = Color.FromArgb(255, 92, 0);
+            showStatTextBox.Name = "showStatTextBox";
+            showStatTextBox.ReadOnly = true;
+            showStatTextBox.MouseClick += showStatTextBox_MouseClick;
+            showStatTextBox.MouseEnter += showStatTextBox_MouseEnter;
+            showStatTextBox.MouseLeave += showStatTextBox_MouseLeave;
             // 
             // TrainerForm
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(28, 41, 62);
-            Controls.Add(label1);
-            Controls.Add(hotKeyCheck);
-            Controls.Add(textCheck);
+            Controls.Add(showStatTextBox);
             Controls.Add(exerciseTextBox);
             Controls.Add(timeLabel);
             Controls.Add(quantityLabel);
@@ -244,8 +227,6 @@
         private Label quantityLabel;
         private Label timeLabel;
         private TextBox exerciseTextBox;
-        private CheckBox textCheck;
-        private CheckBox hotKeyCheck;
-        private Label label1;
+        private TextBox showStatTextBox;
     }
 }

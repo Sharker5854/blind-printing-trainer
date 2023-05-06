@@ -24,18 +24,24 @@ namespace Trainer
 
         private void authButton_Click(object sender, EventArgs e)
         {
-            entered_username = usernameInput.Text;
-            User? user = this.GetUserByUsername(entered_username);
-            if (user == null)
+            entered_username = usernameInput.Text.Trim();
+            if (entered_username != "")
             {
-                Console.WriteLine("Создаём кепочку!");
-                user = this.CreateNewUser(entered_username);
+                User? user = this.GetUserByUsername(entered_username);
+                if (user == null)
+                {
+                    user = this.CreateNewUser(entered_username);
+                }
+                this.Hide();
+                var trainer_form = new TrainerForm(user);
+                trainer_form.StartPosition = FormStartPosition.CenterScreen;
+                trainer_form.FormClosed += (s, args) => this.Close();
+                trainer_form.Show();
             }
-            this.Hide();
-            var trainer_form = new TrainerForm(user);
-            trainer_form.StartPosition = FormStartPosition.CenterScreen;
-            trainer_form.FormClosed += (s, args) => this.Close();
-            trainer_form.Show();
+            else
+            {
+                authTextBoxIndicator.BackColor = ColorTranslator.FromHtml("#CD5C5C");
+            }
             
         }
 

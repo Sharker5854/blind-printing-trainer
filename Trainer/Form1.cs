@@ -1,3 +1,4 @@
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Data.Entity;
 using System.Security.Cryptography.Xml;
@@ -20,8 +21,6 @@ namespace Trainer
         public string mode = "letter";
         public int quantity = 10;
         public int timeLeft = 30;
-        public bool regime_text = true;
-        public bool regime_hot_key = false;
 
         public int exercise_completed_counter = 0;
 
@@ -43,6 +42,7 @@ namespace Trainer
             DivideExercisesInLists();
             textInput.KeyPress += new KeyPressEventHandler(CheckEnterKeyPressing);
             exerciseTextBox.ForeColor = ColorTranslator.FromHtml("#CD5C5C");
+            showStatTextBox.Text = $"Просмотреть статистику {current_user.username}";
         }
 
         public void DivideExercisesInLists()
@@ -231,28 +231,23 @@ namespace Trainer
             mode = "sentence";
         }
 
-        private void textCheck_CheckedChanged(object sender, EventArgs e)
+        private void showStatTextBox_MouseClick(object sender, MouseEventArgs e)
         {
-            if (textCheck.Checked)
-            {
-                regime_text = true;
-            }
-            else
-            {
-                regime_text = false;
-            }
+            startButton.Focus();
+            var statistic_form = new StatisticForm(current_user);
+            statistic_form.StartPosition = FormStartPosition.CenterScreen;
+            statistic_form.Show();
         }
 
-        private void hotKeyCheck_CheckedChanged(object sender, EventArgs e)
+        private void showStatTextBox_MouseEnter(object sender, EventArgs e)
         {
-            if (hotKeyCheck.Checked)
-            {
-                regime_hot_key = true;
-            }
-            else
-            {
-                regime_hot_key = false;
-            }
+            showStatTextBox.ForeColor = ColorTranslator.FromHtml("#FF7400");
         }
+
+        private void showStatTextBox_MouseLeave(object sender, EventArgs e)
+        {
+            showStatTextBox.ForeColor = ColorTranslator.FromHtml("#FF5C00");
+        }
+
     }
 }
