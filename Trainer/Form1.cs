@@ -8,13 +8,6 @@ namespace Trainer
 {
     public partial class TrainerForm : Form
 
-    /*
-     TODO:
-     Запретить копировать из exerciseTextBox
-     Форма с выводом статистики для определенного юзера
-     Памятки
-     Тренажер горячих клавиш???
-    */
     {
         public User current_user;
 
@@ -117,7 +110,9 @@ namespace Trainer
             textInput.BackColor = ColorTranslator.FromHtml("#FFFFFF");
             textInput.Cursor = Cursors.IBeam;
             textInput.Select();
-            radioPanel.Enabled = false;
+            modeRadio1.Enabled = false;
+            modeRadio2.Enabled = false;
+            modeRadio3.Enabled = false;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -167,7 +162,9 @@ namespace Trainer
             textBoxIndicator.BackColor = ColorTranslator.FromHtml("#4169E1");
             startButton.BackColor = ColorTranslator.FromHtml("#FFD700");
             exerciseTimer.Stop();
-            radioPanel.Enabled = true;
+            modeRadio1.Enabled = true;
+            modeRadio2.Enabled = true;
+            modeRadio3.Enabled = true;
             Quantity.Enabled = true;
             Seconds.Enabled = true;
             statistic_saver.WriteToDb();
@@ -249,5 +246,16 @@ namespace Trainer
             showStatTextBox.ForeColor = ColorTranslator.FromHtml("#FF5C00");
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void reminderLabelRight_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void reminderLabelLeft_Click(object sender, EventArgs e)
+        {
+        }
     }
 }

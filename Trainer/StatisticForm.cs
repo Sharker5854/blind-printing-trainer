@@ -20,12 +20,12 @@ namespace Trainer
             InitializeComponent();
             statFormUsernameTextBox.Text = $"Статистика {current_user.username}";
             user_statistic = new StatisticContext().Statistics.First(stat => stat.user_id == current_user.id);
-            totalRoundsTextBox.Text = user_statistic.total_rounds.ToString();
-            totalMinutesTextBox.Text = user_statistic.total_time_minutes.ToString();
-            totalSymbolsTextBox.Text = user_statistic.total_symbols.ToString();
-            totalMistakesTextBox.Text = user_statistic.total_mistakes.ToString();
-            averageSymbolsPerMinuteTextBox.Text = user_statistic.average_symbols_in_minute.ToString();
-            averageMistakesPerRoundTextBox.Text = user_statistic.average_mistakes_per_round.ToString();
+            totalRoundsTitleTextBox.Text += " " + user_statistic.total_rounds.ToString();
+            totalMinutesTitleTextBox.Text += " " + user_statistic.total_time_minutes.ToString();
+            totalSymbolsTitleTextBox.Text += " " + user_statistic.total_symbols.ToString();
+            totalMistakesTitleTextBox.Text += " " + user_statistic.total_mistakes.ToString();
+            averageSymbolsPerMinuteTitleTextBox.Text += " " + user_statistic.average_symbols_in_minute.ToString();
+            averageMistakesPerRoundTitleTextBox.Text += " " + user_statistic.average_mistakes_per_round.ToString();
         }
 
         private void closeStatButton_Click(object sender, EventArgs e)

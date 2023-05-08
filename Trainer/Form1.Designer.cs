@@ -36,6 +36,12 @@
             modeRadio3 = new RadioButton();
             startButton = new Button();
             radioPanel = new Panel();
+            label3 = new Label();
+            label2 = new Label();
+            label1 = new Label();
+            reminder1 = new Label();
+            reminderLabelRight = new Label();
+            reminderLabelLeft = new Label();
             exerciseTimer = new System.Windows.Forms.Timer(components);
             Quantity = new NumericUpDown();
             textBoxIndicator = new Panel();
@@ -102,10 +108,55 @@
             // 
             resources.ApplyResources(radioPanel, "radioPanel");
             radioPanel.BackColor = Color.Transparent;
+            radioPanel.Controls.Add(label3);
+            radioPanel.Controls.Add(label2);
+            radioPanel.Controls.Add(label1);
+            radioPanel.Controls.Add(reminder1);
+            radioPanel.Controls.Add(reminderLabelRight);
+            radioPanel.Controls.Add(reminderLabelLeft);
             radioPanel.Controls.Add(modeRadio3);
             radioPanel.Controls.Add(modeRadio1);
             radioPanel.Controls.Add(modeRadio2);
             radioPanel.Name = "radioPanel";
+            // 
+            // label3
+            // 
+            resources.ApplyResources(label3, "label3");
+            label3.ForeColor = Color.RoyalBlue;
+            label3.Name = "label3";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(label2, "label2");
+            label2.ForeColor = Color.RoyalBlue;
+            label2.Name = "label2";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(label1, "label1");
+            label1.ForeColor = Color.RoyalBlue;
+            label1.Name = "label1";
+            label1.Click += label1_Click;
+            // 
+            // reminder1
+            // 
+            resources.ApplyResources(reminder1, "reminder1");
+            reminder1.ForeColor = Color.RoyalBlue;
+            reminder1.Name = "reminder1";
+            // 
+            // reminderLabelRight
+            // 
+            resources.ApplyResources(reminderLabelRight, "reminderLabelRight");
+            reminderLabelRight.ForeColor = Color.RoyalBlue;
+            reminderLabelRight.Name = "reminderLabelRight";
+            reminderLabelRight.Click += reminderLabelRight_Click;
+            // 
+            // reminderLabelLeft
+            // 
+            resources.ApplyResources(reminderLabelLeft, "reminderLabelLeft");
+            reminderLabelLeft.ForeColor = Color.RoyalBlue;
+            reminderLabelLeft.Name = "reminderLabelLeft";
+            reminderLabelLeft.Click += reminderLabelLeft_Click;
             // 
             // exerciseTimer
             // 
@@ -167,6 +218,7 @@
             exerciseTextBox.ForeColor = Color.IndianRed;
             exerciseTextBox.Name = "exerciseTextBox";
             exerciseTextBox.ReadOnly = true;
+            exerciseTextBox.ShortcutsEnabled = false;
             exerciseTextBox.TabStop = false;
             // 
             // showStatTextBox
@@ -203,6 +255,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "TrainerForm";
+            WindowState = FormWindowState.Minimized;
             radioPanel.ResumeLayout(false);
             radioPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)Quantity).EndInit();
@@ -228,5 +281,11 @@
         private Label timeLabel;
         private TextBox exerciseTextBox;
         private TextBox showStatTextBox;
+        private Label reminder1;
+        private Label reminderLabelRight;
+        private Label reminderLabelLeft;
+        private Label label1;
+        private Label label2;
+        private Label label3;
     }
 }
